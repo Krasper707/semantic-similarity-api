@@ -5,6 +5,15 @@ from pydantic import BaseModel
 from sentence_transformers import SentenceTransformer, util
 import torch
 import re
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Restrict this in production
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # --- Global Model Loading ---
 # This ensures the SBERT model is loaded only once when the serverless function spins up.
@@ -39,7 +48,7 @@ class TextPairRequest(BaseModel):
     text1: str
     text2: str
 
-class SimilarityScoreResponse(Base2Model):
+class SimilarityScoreResponse(BaseModel):
     similarity_score: float
 
 # --- API Endpoint for Similarity Prediction ---
@@ -81,6 +90,10 @@ async def predict_similarity(request: TextPairRequest):
     # --- End of regression model logic ---
 
     return {"similarity_score": final_similarity_score}
+
+@app.get("/ping")
+async def ping():
+    return {"status": "ok"}
 
 # --- Optional: Root endpoint for health check or info ---
 @app.get("/", response_class=HTMLResponse)
