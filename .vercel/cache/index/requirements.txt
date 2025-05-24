@@ -1,0 +1,6 @@
+fastapi
+uvicorn # Vercel uses this under the hood for Python deployments
+sentence-transformers
+torch
+pydantic==2.5.3
+nltk

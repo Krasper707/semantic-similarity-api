@@ -18,38 +18,35 @@ dist/
 
 # Editor/IDE specific files
 .vscode/ # VS Code settings
+.idea/   # PyCharm settings
+*.swp    # Vim swap files
+*~       # Emacs backup files
 
 # Operating System specific files
-Thumbs.db 
+.DS_Store # macOS
+Thumbs.db # Windows
 
 # Jupyter Notebook specific (often contain large outputs)
 .ipynb_checkpoints/
-*.ipynb # Generally, you might not want notebooks in your deployable artifact.
-        # If you need to keep them in the repo but not deploy, we'd use .vercelignore later.
-        # For now, it's safer to ignore if they are very large.
+*.ipynb # This will ignore all .ipynb files in your repo
 
 # Data files (Crucial for your project's large CSV)
-# The 'data' folder contains your raw dataset.
-# Your API doesn't need the entire dataset for inference.
-data/
+data/ # This will ignore the entire data/ folder
 
 # Report and documentation files
 report/ # Your report/explanation Markdown files
-*.pdf   # Any PDF documents (like your resume PDF)
+*.pdf   # Any PDF documents (like your resume PDF if present)
 *.docx
 *.txt # If you have other large text files you don't need in the deployment
 # If your Data Scientist_DataNeuron.pdf is directly under models/DataNeuron_DataScience_Task1/, ignore it:
 models/DataNeuron_DataScience_Task1/Data Scientist_DataNeuron.pdf
 
 # Machine Learning related files (CRITICAL for size reduction)
-# Hugging Face/Sentence-Transformers cache (where downloaded models are stored)
-# This folder is OFTEN the main culprit for "data too long" errors.
+# Hugging Face/Sentence-Transformers model cache (where downloaded models are stored locally by the library)
 .cache/
 
 # Saved models / checkpoints (ONLY if they are generated locally and not needed for deployment,
-# OR if you are using Git LFS for them. If you NEED them for deployment, they must be small.)
-# If you are NOT using the optional regression model, these can be safely ignored.
-# If you ARE using it, ensure they are in `model_assets/` and `model_assets/` is NOT ignored.
+# OR if you are using Git LFS for them. If you NEED them for deployment, ensure they are small.)
 *.joblib
 *.pkl
 *.pt # PyTorch model weights
